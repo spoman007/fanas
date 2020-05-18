@@ -45,7 +45,12 @@ const resolvers = {
   },
 }
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+})
 server.applyMiddleware({ app })
 app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
