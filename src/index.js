@@ -92,17 +92,23 @@ async function getRepositories() {
     },
   }
 
-  const jsRepos = await scrapeIt(
-    'https://github.com/trending/javascript?spoken_language_code=en',
-    repoStructure
-  )
+  const [
+    {
+      data: { repositories: tsRepos },
+    },
+    {
+      data: { repositories: jsRepos },
+    },
+  ] = await Promise.all([
+    scrapeIt(
+      'https://github.com/trending/typescript?spoken_language_code=en',
+      repoStructure
+    ),
+    scrapeIt(
+      'https://github.com/trending/javascript?spoken_language_code=en',
+      repoStructure
+    ),
+  ])
 
-  const tsRepos = await scrapeIt(
-    'https://github.com/trending/typescript?spoken_language_code=en',
-    repoStructure
-  )
-
-  return [...jsRepos.data.repositories, ...tsRepos.data.repositories].sort(
-    (a, b) => Math.random() * 2 - 1
-  )
+  return [...jsRepos, ...tsRepos].sort((a, b) => Math.random() * 2 - 1)
 }
