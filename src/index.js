@@ -5,6 +5,7 @@ import scrapeIt from 'scrape-it'
 import fetch from 'node-fetch'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { ApolloServer, gql } from 'apollo-server-express'
+import xmlParser from 'xml2json'
 
 const app = express()
 
@@ -30,9 +31,16 @@ const typeDefs = gql`
     description: String
   }
 
+  type Discussion {
+    title: String
+    link: String
+    url: String
+  }
+
   type Query {
     articles: [Article]
     repositories: [Repository]
+    discussions: [Discussion]
   }
   schema {
     query: Query
@@ -42,6 +50,7 @@ const resolvers = {
   Query: {
     articles: () => getArticles(),
     repositories: () => getRepositories(),
+    discussions: () => getDiscussions(),
   },
 }
 
@@ -57,6 +66,8 @@ app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 app.get('/repositories', async (req, res) => res.send(await getRepositories()))
 
 app.get('/articles', async (req, res) => res.json(await getArticles()))
+
+app.get('/discussions', async (req, res) => res.json(await getDiscussions()))
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
@@ -111,4 +122,16 @@ async function getRepositories() {
   ])
 
   return [...jsRepos, ...tsRepos].sort((a, b) => Math.random() * 2 - 1)
+}
+
+async function getDiscussions() {
+  const response = await (
+    await fetch('https://www.reddit.com/r/javascript/.json')
+  ).json()
+
+  return response.data.children.map(({ data }) => ({
+    title: data.title,
+    link: 'https://www.reddit.com' + data.permalink,
+    url: data.url,
+  }))
 }
