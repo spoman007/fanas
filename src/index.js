@@ -5,7 +5,6 @@ import scrapeIt from 'scrape-it'
 import fetch from 'node-fetch'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { ApolloServer, gql } from 'apollo-server-express'
-import xmlParser from 'xml2json'
 
 const app = express()
 
@@ -97,6 +96,14 @@ async function getRepositories() {
           attr: 'href',
           convert: (x) =>
             'https://github.com' + x.split('=')[1].split('%2F').join('/'),
+        },
+        language: {
+          selector: '.mt-2',
+          convert: (x) => x.split('\n')[0],
+        },
+        stars:{
+          selector:'.mt-2 a',
+          convert:(x) => x.split('\n').join('').split(' ')[0]
         },
         description: 'p.pr-4',
       },
