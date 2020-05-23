@@ -75,10 +75,11 @@ async function getArticles() {
     'https://dev.to/search/feed_content?per_page=15&page=0&tag=javascript&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=javascript&approved=&class_name=Article'
   )
   const { result } = await api_res.json()
-  return result.map(({ path, tags, title }) => ({
+  return result.map(({ path, tags, title, main_image, image_url }) => ({
     title,
     link: 'https://dev.to' + path,
     tags,
+    image: main_image!==null ? main_image : image_url,
   }))
 }
 
@@ -101,9 +102,9 @@ async function getRepositories() {
           selector: '.mt-2',
           convert: (x) => x.split('\n')[0],
         },
-        stars:{
-          selector:'.mt-2 a',
-          convert:(x) => x.split('\n').join('').split(' ')[0]
+        stars: {
+          selector: '.mt-2 a',
+          convert: (x) => x.split('\n').join('').split(' ')[0],
         },
         description: 'p.pr-4',
       },
