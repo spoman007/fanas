@@ -22,6 +22,7 @@ const typeDefs = gql`
     title: String
     link: String
     tags: [Tags]
+    image: String
   }
 
   type Repository {
@@ -34,6 +35,7 @@ const typeDefs = gql`
     title: String
     link: String
     url: String
+    image: String
   }
 
   type Query {
@@ -154,7 +156,10 @@ async function getDiscussions() {
       title: title,
       link: 'https://www.reddit.com' + permalink,
       url: url,
-      image: thumbnail !== '' && thumbnail !== 'self' ? thumbnail : null,
+      image:
+        thumbnail !== '' && thumbnail !== 'self' && thumbnail !== 'default'
+          ? thumbnail
+          : null,
     })
   )
 }
