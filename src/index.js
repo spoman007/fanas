@@ -79,7 +79,7 @@ async function getArticles() {
     title,
     link: 'https://dev.to' + path,
     tags,
-    image: main_image!==null ? main_image : image_url,
+    image: main_image !== null ? main_image : image_url,
   }))
 }
 
@@ -133,13 +133,28 @@ async function getRepositories() {
 }
 
 async function getDiscussions() {
-  const response = await (
-    await fetch('https://www.reddit.com/r/javascript/.json')
-  ).json()
+  const [
+    {
+      data: { children: reactThreads },
+    },
+    {
+      data: { children: jsThreads },
+    },
+  ] = await Promise.all([
+    fetch('https://www.reddit.com/r/reactjs/.json').then((value) =>
+      value.json()
+    ),
+    fetch('https://www.reddit.com/r/javascript/.json').then((data) =>
+      data.json()
+    ),
+  ])
 
-  return response.data.children.map(({ data }) => ({
-    title: data.title,
-    link: 'https://www.reddit.com' + data.permalink,
-    url: data.url,
-  }))
+  return [...reactThreads, ...jsThreads].map(
+    ({ data: { title, permalink, url, thumbnail } }) => ({
+      title: title,
+      link: 'https://www.reddit.com' + permalink,
+      url: url,
+      image: thumbnail !== '' && thumbnail !== 'self' ? thumbnail : null,
+    })
+  )
 }
