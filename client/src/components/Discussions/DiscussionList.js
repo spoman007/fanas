@@ -5,7 +5,7 @@ const DiscussionList = () => {
   const [discussions, setDiscussions] = useState([])
 
   useEffect(() => {
-    fetch('https://scraper-apisz.herokuapp.com/discussions')
+    fetch('https://fanas.herokuapp.com/discussions')
       .then((res) => res.json())
       .then((discussions) => setDiscussions(discussions))
   }, [])

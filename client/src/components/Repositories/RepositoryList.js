@@ -5,7 +5,7 @@ const RepositoryList = () => {
   const [repos, setRepos] = useState([])
 
   useEffect(() => {
-    fetch('https://scraper-apisz.herokuapp.com/repositories')
+    fetch('https://fanas.herokuapp.com/repositories')
       .then((res) => res.json())
       .then((repos) => setRepos(repos))
   }, [])

@@ -5,7 +5,7 @@ const ArticleList = () => {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
-    fetch('https://scraper-apisz.herokuapp.com/articles')
+    fetch('https://fanas.herokuapp.com/articles')
       .then((res) => res.json())
       .then((articles) => setArticles(articles))
   }, [])
