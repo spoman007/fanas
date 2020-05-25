@@ -108,6 +108,10 @@ async function getRepositories() {
           selector: '.mt-2 a',
           convert: (x) => x.split('\n').join('').split(' ')[0],
         },
+        today: {
+          selector: '.float-sm-right',
+          convert: (x) => parseInt(x.split('')[0]),
+        },
         description: 'p.pr-4',
       },
     },
@@ -131,7 +135,7 @@ async function getRepositories() {
     ),
   ])
 
-  return [...jsRepos, ...tsRepos].sort((a, b) => Math.random() * 2 - 1)
+  return [...jsRepos, ...tsRepos].sort((a, b) => b.today - a.today)
 }
 
 async function getDiscussions() {
