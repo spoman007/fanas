@@ -29,6 +29,9 @@ const typeDefs = gql`
     title: String
     link: String
     description: String
+    language: String
+    stars: String
+    today: Int
   }
 
   type Discussion {
