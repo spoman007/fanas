@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Article from './Article'
+import { useData } from '../hooks/Hooks'
+import Spinner from '../Spinner'
 
 const ArticleList = () => {
-  const [articles, setArticles] = useState([])
-
-  useEffect(() => {
-    fetch('https://fanas.herokuapp.com/articles')
-      .then((res) => res.json())
-      .then((articles) => setArticles(articles))
-  }, [])
-  return (
+  const [loadingArticles, articles] = useData(
+    'https://fanas.herokuapp.com/articles'
+  )
+  return !loadingArticles ? (
     <div className="container">
       {articles.map((article) => (
         <Article article={article} key={article.title} />
       ))}
     </div>
+  ) : (
+    <Spinner />
   )
 }
 

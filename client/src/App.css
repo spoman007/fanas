@@ -114,3 +114,10 @@ p {
   color: white;
   text-decoration: none;
 }
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

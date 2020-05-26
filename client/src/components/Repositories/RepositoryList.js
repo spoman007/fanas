@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Repository from './Repository'
+import Spinner from '../Spinner'
+import { useData } from '../hooks/Hooks'
 
 const RepositoryList = () => {
-  const [repos, setRepos] = useState([])
+  const [loadingRepositories, repos] = useData(
+    'https://fanas.herokuapp.com/repositories'
+  )
 
-  useEffect(() => {
-    fetch('https://fanas.herokuapp.com/repositories')
-      .then((res) => res.json())
-      .then((repos) => setRepos(repos))
-  }, [])
-
-  return (
+  return !loadingRepositories ? (
     <div className="container">
       {repos.map((repo) => (
         <Repository repo={repo} key={repo.title} />
       ))}
     </div>
+  ) : (
+    <Spinner />
   )
 }
 

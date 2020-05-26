@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
-import RepositoryList from './components/Repositories/RepositoryList'
-import Nav from './components/Navigation/Nav'
-import ArticleList from './components/Articles/ArticleList'
-import DiscussionList from './components/Discussions/DiscussionList'
+import RepositoryList from './components/repositories/RepositoryList'
+import Nav from './components/navigation/Nav'
+import ArticleList from './components/articles/ArticleList'
+import DiscussionList from './components/discussions/DiscussionList'
 
 const App = () => {
   const [currentTab, setCurrentTab] = useState('repositories')

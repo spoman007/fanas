@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 dist
+client/firebase.json
+client/.firebase/hosting.YnVpbGQ.cache
+client/.firebaserc
