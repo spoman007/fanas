@@ -1,7 +1,7 @@
 import React from 'react'
 import Repository from './Repository'
 import Spinner from '../Spinner'
-import { useData } from '../hooks/Hooks'
+import { useData } from '../../hooks/Hooks'
 
 const RepositoryList = () => {
   const [loadingRepositories, repos] = useData(

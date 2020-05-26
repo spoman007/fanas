@@ -121,3 +121,7 @@ p {
   justify-content: center;
   height: 100vh;
 }
+
+.spinner-image{
+  height: 70px;
+}

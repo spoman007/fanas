@@ -1,6 +1,6 @@
 import React from 'react'
 import Article from './Article'
-import { useData } from '../hooks/Hooks'
+import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
 
 const ArticleList = () => {
