@@ -14,10 +14,12 @@ const DiscussionList = () => {
       className="container"
       initial="hidden"
       animate="visible"
+      exit
       variants={{
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
       }}
+      transition={{ duration: 1.5 }}
     >
       {discussions.map((discussion, i) => (
         <Discussion discussion={discussion} key={discussion.title + i} />

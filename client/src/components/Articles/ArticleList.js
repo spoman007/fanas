@@ -17,6 +17,7 @@ const ArticleList = () => {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
       }}
+      transition={{ duration: 1.5 }}
     >
       {articles.map((article) => (
         <Article article={article} key={article.title} />

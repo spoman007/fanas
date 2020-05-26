@@ -14,6 +14,7 @@ const RepositoryList = () => {
       className="container"
       initial="hidden"
       animate="visible"
+      transition={{ duration: 1.5 }}
       variants={{
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
