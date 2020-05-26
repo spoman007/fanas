@@ -2,6 +2,7 @@ import React from 'react'
 import Discussion from './Discussion'
 import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
+import { motion } from 'framer-motion'
 
 const DiscussionList = () => {
   const [loadingDiscussions, discussions] = useData(
@@ -9,11 +10,19 @@ const DiscussionList = () => {
   )
 
   return !loadingDiscussions ? (
-    <div className="container">
+    <motion.div
+      className="container"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+      }}
+    >
       {discussions.map((discussion, i) => (
         <Discussion discussion={discussion} key={discussion.title + i} />
       ))}
-    </div>
+    </motion.div>
   ) : (
     <Spinner />
   )
