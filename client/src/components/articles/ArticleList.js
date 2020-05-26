@@ -14,9 +14,10 @@ const ArticleList = () => {
       initial="hidden"
       animate="visible"
       variants={{
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
       }}
+      transition={{ duration: 0.2 }}
     >
       {articles.map((article) => (
         <Article article={article} key={article.title} />
