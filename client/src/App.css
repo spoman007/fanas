@@ -1,3 +1,18 @@
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+
 body {
   background-color: #282c34;
 }
@@ -26,7 +41,7 @@ body {
 
 p {
   margin-top: 7px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .octicon {
@@ -79,11 +94,11 @@ p {
 }
 
 .nav-link:hover {
-  background-color: #8a8a8a;
+  background-color: #4c4a4a;
 }
 
 .nav-link--active {
-  background-color: #8a8a8a;
+  background-color: #4c4a4a;
 }
 
 .nav-icon {
@@ -122,6 +137,6 @@ p {
   height: 100vh;
 }
 
-.spinner-image{
+.spinner-image {
   height: 70px;
 }
