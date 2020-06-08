@@ -32,6 +32,7 @@ const typeDefs = gql`
     language: String
     stars: String
     today: Int
+    colour: String
   }
 
   type Discussion {
@@ -43,7 +44,7 @@ const typeDefs = gql`
 
   type Query {
     articles: [Article]
-    repositories: [Repository]
+    repositories(language: String): [Repository]
     discussions: [Discussion]
   }
   schema {
@@ -53,7 +54,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     articles: () => getArticles(),
-    repositories: () => getRepositories(),
+    repositories: (parent, args) => getRepositories(args),
     discussions: () => getDiscussions(),
   },
 }
@@ -67,7 +68,9 @@ const server = new ApolloServer({
 server.applyMiddleware({ app })
 app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
-app.get('/repositories', async (req, res) => res.send(await getRepositories()))
+app.get('/repositories/:language?', async (req, res) =>
+  res.send(await getRepositories(req.params))
+)
 
 app.get('/articles', async (req, res) => res.json(await getArticles()))
 
@@ -88,7 +91,7 @@ async function getArticles() {
   }))
 }
 
-async function getRepositories() {
+async function getRepositories({ language }) {
   const repoStructure = {
     repositories: {
       listItem: 'article',
@@ -111,6 +114,11 @@ async function getRepositories() {
           selector: '.mt-2 a',
           convert: (x) => x.split('\n').join('').split(' ')[0],
         },
+        colour: {
+          selector: '.mt-2 span .repo-language-color',
+          attr: 'style',
+          convert: (x) => x.split('background-color: ')[1],
+        },
         today: {
           selector: '.float-sm-right',
           convert: (x) => parseInt(x.split('')[0]),
@@ -119,24 +127,30 @@ async function getRepositories() {
       },
     },
   }
-
-  const [
-    {
-      data: { repositories: tsRepos },
-    },
-    {
-      data: { repositories: jsRepos },
-    },
-  ] = await Promise.all([
-    scrapeIt(
-      'https://github.com/trending/typescript?spoken_language_code=en',
-      repoStructure
-    ),
-    scrapeIt(
-      'https://github.com/trending/javascript?spoken_language_code=en',
-      repoStructure
-    ),
-  ])
+  const obj =
+      language === undefined || language === 'javascript'
+        ? [
+            scrapeIt(
+              'https://github.com/trending/typescript?spoken_language_code=en',
+              repoStructure
+            ),
+            scrapeIt(
+              'https://github.com/trending/javascript?spoken_language_code=en',
+              repoStructure
+            ),
+          ]
+        : [
+            scrapeIt(
+              `https://github.com/trending/${language}?spoken_language_code=en`,
+              repoStructure
+            ),
+          ],
+    [
+      {
+        data: { repositories: tsRepos },
+      },
+      { data: { repositories: jsRepos = [] } = {} } = {},
+    ] = await Promise.all(obj)
 
   return [...jsRepos, ...tsRepos].sort((a, b) => b.today - a.today)
 }
