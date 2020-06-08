@@ -43,9 +43,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    articles: [Article]
+    articles(language: String): [Article]
     repositories(language: String): [Repository]
-    discussions: [Discussion]
+    discussions(language: String): [Discussion]
   }
   schema {
     query: Query
@@ -53,9 +53,9 @@ const typeDefs = gql`
 `
 const resolvers = {
   Query: {
-    articles: () => getArticles(),
-    repositories: (parent, args) => getRepositories(args),
-    discussions: () => getDiscussions(),
+    articles: (_parent, args) => getArticles(args),
+    repositories: (_parent, args) => getRepositories(args),
+    discussions: (_parent, args) => getDiscussions(args),
   },
 }
 
@@ -72,15 +72,19 @@ app.get('/repositories/:language?', async (req, res) =>
   res.send(await getRepositories(req.params))
 )
 
-app.get('/articles', async (req, res) => res.json(await getArticles()))
+app.get('/articles/:language?', async (req, res) =>
+  res.json(await getArticles(req.params))
+)
 
-app.get('/discussions', async (req, res) => res.json(await getDiscussions()))
+app.get('/discussions/:language?', async (req, res) =>
+  res.json(await getDiscussions(req.params))
+)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
-async function getArticles() {
+async function getArticles({ language = 'javascript' } = {}) {
   const api_res = await fetch(
-    'https://dev.to/search/feed_content?per_page=30&page=0&tag=javascript&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=javascript&approved=&class_name=Article'
+    `https://dev.to/search/feed_content?per_page=30&page=0&tag=${language}&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=${language}&approved=&class_name=Article`
   )
   const { result } = await api_res.json()
   return result.map(({ path, tags, title, main_image, image_url }) => ({
@@ -155,22 +159,28 @@ async function getRepositories({ language }) {
   return [...jsRepos, ...tsRepos].sort((a, b) => b.today - a.today)
 }
 
-async function getDiscussions() {
-  const [
-    {
-      data: { children: reactThreads },
-    },
-    {
-      data: { children: jsThreads },
-    },
-  ] = await Promise.all([
-    fetch('https://www.reddit.com/r/reactjs/.json').then((value) =>
-      value.json()
-    ),
-    fetch('https://www.reddit.com/r/javascript/.json').then((data) =>
-      data.json()
-    ),
-  ])
+async function getDiscussions({ language = 'javascript' } = {}) {
+  const obj =
+      language === 'javascript'
+        ? [
+            fetch('https://www.reddit.com/r/reactjs/.json').then((value) =>
+              value.json()
+            ),
+            fetch('https://www.reddit.com/r/javascript/.json').then((data) =>
+              data.json()
+            ),
+          ]
+        : [
+            fetch(`https://www.reddit.com/r/${language}/.json`).then((value) =>
+              value.json()
+            ),
+          ],
+    [
+      {
+        data: { children: reactThreads },
+      },
+      { data: { children: jsThreads = [] } = {} } = {},
+    ] = await Promise.all(obj)
 
   return [...reactThreads, ...jsThreads].map(
     ({ data: { title, permalink, url, thumbnail } }) => ({
