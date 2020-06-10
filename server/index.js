@@ -84,7 +84,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`))
 
 async function getArticles({ language = 'javascript' } = {}) {
   const api_res = await fetch(
-    `https://dev.to/search/feed_content?per_page=30&page=0&tag=${language}&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=${language}&approved=&class_name=Article`
+    `https://dev.to/search/feed_content?per_page=30&page=0&tag=${language.toLowerCase()}&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=${language.toLowerCase()}&approved=&class_name=Article`
   )
   const { result } = await api_res.json()
   return result.map(({ path, tags, title, main_image, image_url }) => ({
