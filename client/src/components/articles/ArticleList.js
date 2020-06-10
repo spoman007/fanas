@@ -4,9 +4,9 @@ import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
 import { motion } from 'framer-motion'
 
-const ArticleList = () => {
+const ArticleList = ({isOpen, language}) => {
   const [loadingArticles, articles] = useData(
-    'https://fanas.herokuapp.com/articles'
+    `https://fanas.herokuapp.com/articles/${language}`
   )
   return !loadingArticles ? (
     <motion.div
@@ -18,6 +18,7 @@ const ArticleList = () => {
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.2 }}
+      style={{ backgroundColor: isOpen ? '#848484' : null }}
     >
       {articles.map((article) => (
         <Article article={article} key={article.title} />

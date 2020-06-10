@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Repository = ({
-  repo: { title, link, description, language, stars },
+  repo: { title, link, description, language, stars, colour },
 }) => (
   <div className="card">
     <div onClick={() => window.open(link, '_newtab')}>
@@ -12,8 +12,7 @@ const Repository = ({
           <span
             className="repo-language-color"
             style={{
-              backgroundColor:
-                language === 'JavaScript' ? '#f1e05a' : '#2b7489',
+              backgroundColor: colour,
             }}
           ></span>
           <span>{language}</span>

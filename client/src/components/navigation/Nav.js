@@ -7,7 +7,7 @@ import {
   RiMenuLine,
 } from 'react-icons/ri'
 
-const Nav = ({ setCurrentTab, currentTab }) => (
+const Nav = ({ setCurrentTab, currentTab, toggle }) => (
   <div className="nav">
     <a
       href="/#"
@@ -39,7 +39,7 @@ const Nav = ({ setCurrentTab, currentTab }) => (
       <RiDiscussLine className="nav-icon" />
       <span className="nav-text">Discuss</span>
     </a>
-    <a href="/#" className="nav-link">
+    <a href="/#" className="nav-link" onClick={() => toggle()}>
       <RiMenuLine className="nav-icon" />
       <span className="nav-text">Menu</span>
     </a>

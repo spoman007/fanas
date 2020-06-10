@@ -4,9 +4,9 @@ import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
 import { motion } from 'framer-motion'
 
-const DiscussionList = () => {
+const DiscussionList = ({ isOpen, language }) => {
   const [loadingDiscussions, discussions] = useData(
-    'https://fanas.herokuapp.com/discussions'
+    `https://fanas.herokuapp.com/discussions/${language}`
   )
 
   return !loadingDiscussions ? (
@@ -19,6 +19,7 @@ const DiscussionList = () => {
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.2 }}
+      style={{ backgroundColor: isOpen ? '#848484' : null }}
     >
       {discussions.map((discussion, i) => (
         <Discussion discussion={discussion} key={discussion.title + i} />

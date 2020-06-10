@@ -4,9 +4,9 @@ import Spinner from '../Spinner'
 import { useData } from '../../hooks/Hooks'
 import { motion } from 'framer-motion'
 
-const RepositoryList = () => {
+const RepositoryList = ({ isOpen, language }) => {
   const [loadingRepositories, repos] = useData(
-    'https://fanas.herokuapp.com/repositories'
+    `https://fanas.herokuapp.com/repositories/${language}`
   )
 
   return !loadingRepositories ? (
@@ -19,6 +19,7 @@ const RepositoryList = () => {
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.2 }}
+      style={{ backgroundColor: isOpen ? '#848484' : null }}
     >
       {repos.map((repo) => (
         <Repository repo={repo} key={repo.title} />
