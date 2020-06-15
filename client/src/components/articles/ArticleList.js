@@ -1,14 +1,29 @@
 import React from 'react'
 import Article from './Article'
-import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
 import { motion } from 'framer-motion'
+import { useQuery } from 'react-query'
 
 const ArticleList = ({ isOpen, language, handleDrag }) => {
-  const [loadingArticles, articles] = useData(
-    `https://fanas.herokuapp.com/articles/${language}`
+  const fetchArticles = () =>
+    fetch(`https://fanas.herokuapp.com/articles/${language}`).then((res) =>
+      res.json()
+    )
+
+  const { status, data: articles, error } = useQuery(
+    `articles${language}`,
+    fetchArticles
   )
-  return !loadingArticles ? (
+
+  if (status === 'loading') {
+    return <Spinner />
+  }
+
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
+
+  return (
     <motion.div
       // drag="x"
       // dragConstraints={{ left: 0, right: 0 }}
@@ -27,8 +42,6 @@ const ArticleList = ({ isOpen, language, handleDrag }) => {
         <Article article={article} key={article.title} />
       ))}
     </motion.div>
-  ) : (
-    <Spinner />
   )
 }
 

@@ -1,15 +1,29 @@
 import React from 'react'
 import Repository from './Repository'
 import Spinner from '../Spinner'
-import { useData } from '../../hooks/Hooks'
 import { motion } from 'framer-motion'
+import { useQuery } from 'react-query'
 
 const RepositoryList = ({ isOpen, language, handleDrag }) => {
-  const [loadingRepositories, repos] = useData(
-    `https://fanas.herokuapp.com/repositories/${language}`
+  const fetchRepos = () =>
+    fetch(`https://fanas.herokuapp.com/repositories/${language}`).then((res) =>
+      res.json()
+    )
+
+  const { status, data: repos, error } = useQuery(
+    `repository${language}`,
+    fetchRepos
   )
 
-  return !loadingRepositories ? (
+  if (status === 'loading') {
+    return <Spinner />
+  }
+
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
+
+  return (
     <motion.div
       // drag
       // dragConstraints={{ left: 0, right: 0 }}
@@ -30,8 +44,6 @@ const RepositoryList = ({ isOpen, language, handleDrag }) => {
         <Repository repo={repo} key={repo.title} />
       ))}
     </motion.div>
-  ) : (
-    <Spinner />
   )
 }
 
