@@ -21,4 +21,4 @@ export const Navigation = ({ setLanguage }) => (
   </motion.ul>
 )
 
-const itemIds = ['java', 'python', 'javascript', 'rust', 'kotlin']
+const itemIds = ['Scala', 'Python', 'Javascript', 'Rust', 'Kotlin']

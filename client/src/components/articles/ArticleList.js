@@ -4,12 +4,15 @@ import { useData } from '../../hooks/Hooks'
 import Spinner from '../Spinner'
 import { motion } from 'framer-motion'
 
-const ArticleList = ({isOpen, language}) => {
+const ArticleList = ({ isOpen, language, handleDrag }) => {
   const [loadingArticles, articles] = useData(
     `https://fanas.herokuapp.com/articles/${language}`
   )
   return !loadingArticles ? (
     <motion.div
+      // drag="x"
+      // dragConstraints={{ left: 0, right: 0 }}
+      // onDragEnd={(_event, info) => handleDrag(info.point.x)}
       className="container"
       initial="hidden"
       animate="visible"

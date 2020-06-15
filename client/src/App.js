@@ -45,6 +45,27 @@ const sidebar = {
     },
   }
 
+const tabs = {
+  repositories: {
+    left: 'repositories',
+    right: 'articles',
+  },
+  articles: {
+    left: 'repositories',
+    right: 'discussions',
+  },
+  discussions: {
+    left: 'articles',
+    right: 'discussions',
+  },
+}
+
+const getTab = (currentTab, dragPosition) => {
+  if (dragPosition > -140 && dragPosition < 140) return currentTab
+  const direction = dragPosition < 0 ? 'right' : 'left'
+  return tabs[currentTab][direction]
+}
+
 const App = () => {
   const [currentTab, setCurrentTab] = useState('repositories')
   const [language, setLanguage] = useState('javascript')
@@ -76,16 +97,35 @@ const App = () => {
         />
         <Navigation setLanguage={setNewLanguage} />
       </motion.nav>
-
-      {currentTab === 'repositories' && (
-        <RepositoryList isOpen={isOpen} language={language} />
-      )}
-      {currentTab === 'articles' && (
-        <ArticleList isOpen={isOpen} language={language} />
-      )}
-      {currentTab === 'discussions' && (
-        <DiscussionList isOpen={isOpen} language={language} />
-      )}
+      <motion.div>
+        {currentTab === 'repositories' && (
+          <RepositoryList
+            isOpen={isOpen}
+            language={language}
+            handleDrag={(position) =>
+              setCurrentTab(getTab(currentTab, position))
+            }
+          />
+        )}
+        {currentTab === 'articles' && (
+          <ArticleList
+            isOpen={isOpen}
+            language={language}
+            handleDrag={(position) =>
+              setCurrentTab(getTab(currentTab, position))
+            }
+          />
+        )}
+        {currentTab === 'discussions' && (
+          <DiscussionList
+            isOpen={isOpen}
+            language={language}
+            handleDrag={(position) =>
+              setCurrentTab(getTab(currentTab, position))
+            }
+          />
+        )}
+      </motion.div>
       <Nav
         setCurrentTab={setCurrentTab}
         currentTab={currentTab}
