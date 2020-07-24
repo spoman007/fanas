@@ -13,7 +13,7 @@ const Nav = ({ setCurrentTab, currentTab, toggle }) => (
       href="/#"
       className={`nav-link ${
         currentTab === 'repositories' ? ', nav-link--active' : ''
-      }`}
+        }`}
       onClick={() => setCurrentTab('repositories')}
     >
       <RiGitRepositoryLine className="nav-icon" />
@@ -23,7 +23,7 @@ const Nav = ({ setCurrentTab, currentTab, toggle }) => (
       href="/#"
       className={`nav-link ${
         currentTab === 'articles' ? ', nav-link--active' : ''
-      }`}
+        }`}
       onClick={() => setCurrentTab('articles')}
     >
       <RiNewspaperLine className="nav-icon" />
@@ -33,7 +33,7 @@ const Nav = ({ setCurrentTab, currentTab, toggle }) => (
       href="/#"
       className={`nav-link ${
         currentTab === 'discussions' ? ', nav-link--active' : ''
-      }`}
+        }`}
       onClick={() => setCurrentTab('discussions')}
     >
       <RiDiscussLine className="nav-icon" />

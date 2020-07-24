@@ -3,8 +3,15 @@ import Repository from './Repository'
 import Spinner from '../Spinner'
 import { motion } from 'framer-motion'
 import { useQuery } from 'react-query'
+import { useLocalStorage } from '../../hooks/Hooks'
 
 const RepositoryList = ({ isOpen, language, handleDrag }) => {
+
+  const [favoriteRepos, setFavorite] = useLocalStorage('favorites', []);
+  const bookmark = (title) => {
+    const newFavorites = favoriteRepos.find(obj => obj.title === title) === undefined ? [...favoriteRepos, repos.find(obj => obj.title === title)] : favoriteRepos.filter(obj => obj.title !== title)
+    setFavorite(newFavorites)
+  }
   const fetchRepos = () =>
     fetch(`https://fanas.herokuapp.com/repositories/${language}`).then((res) =>
       res.json()
@@ -40,9 +47,10 @@ const RepositoryList = ({ isOpen, language, handleDrag }) => {
       transition={{ duration: 0.2 }}
       style={{ backgroundColor: isOpen ? '#848484' : null }}
     >
-      {repos.map((repo) => (
-        <Repository repo={repo} key={repo.title} />
-      ))}
+      {repos.map((repo) => {
+        repo = { ...repo, isFavorite: favoriteRepos.filter(obj => obj.title === repo.title).length > 0 }
+        return <Repository repo={repo} key={repo.title} bookmark={bookmark} />
+      })}
     </motion.div>
   )
 }

@@ -30,7 +30,7 @@ body {
   padding: 5px;
   box-shadow: 0px 0px 5px 0px #ccc;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
 
