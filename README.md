@@ -16,6 +16,7 @@ https://progressiveapp.store/pwa/Fanas
 ## TODO 📝
 - Add bookmark capability
 - Add more languages like C#
+- Consider the desktop view, right now application is designed from mobile perspective
 
 #### Note: The app only displays titles and deep links them to original source.
 
