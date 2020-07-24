@@ -21,6 +21,8 @@ const RepositoryList = ({ isOpen, language, handleDrag }) => {
     `repository${language}`,
     fetchRepos
   )
+  const currentRepos = repos ? repos : []
+  const allRepos = [...currentRepos, ...favoriteRepos.filter(obj => !currentRepos.filter(x => x.title === obj.title).length > 0)]
 
   if (status === 'loading') {
     return <Spinner />
@@ -47,7 +49,7 @@ const RepositoryList = ({ isOpen, language, handleDrag }) => {
       transition={{ duration: 0.2 }}
       style={{ backgroundColor: isOpen ? '#848484' : null }}
     >
-      {repos.map((repo) => {
+      {allRepos.map((repo) => {
         repo = { ...repo, isFavorite: favoriteRepos.filter(obj => obj.title === repo.title).length > 0 }
         return <Repository repo={repo} key={repo.title} bookmark={bookmark} />
       })}
