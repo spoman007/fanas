@@ -6,6 +6,10 @@ import fetch from 'node-fetch'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { ApolloServer, gql } from 'apollo-server-express'
 
+import hsp from 'heroku-self-ping';
+
+hsp("https://fanas.herokuapp.com/articles");
+
 const app = express()
 
 app.use(cors())
