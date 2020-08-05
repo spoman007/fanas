@@ -6,9 +6,10 @@ import fetch from 'node-fetch'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { ApolloServer, gql } from 'apollo-server-express'
 
-import hsp from 'heroku-self-ping';
-
-hsp("https://fanas.herokuapp.com", {interval: 240000});
+setInterval(async () => {
+  await fetch("https://fanas.herokuapp.com")
+  console.log('done')
+}, 1140000)
 
 const app = express()
 
@@ -136,23 +137,23 @@ async function getRepositories({ language }) {
     },
   }
   const obj =
-      language === undefined || language === 'javascript'
-        ? [
-            scrapeIt(
-              'https://github.com/trending/typescript?spoken_language_code=en',
-              repoStructure
-            ),
-            scrapeIt(
-              'https://github.com/trending/javascript?spoken_language_code=en',
-              repoStructure
-            ),
-          ]
-        : [
-            scrapeIt(
-              `https://github.com/trending/${language}?spoken_language_code=en`,
-              repoStructure
-            ),
-          ],
+    language === undefined || language === 'javascript'
+      ? [
+        scrapeIt(
+          'https://github.com/trending/typescript?spoken_language_code=en',
+          repoStructure
+        ),
+        scrapeIt(
+          'https://github.com/trending/javascript?spoken_language_code=en',
+          repoStructure
+        ),
+      ]
+      : [
+        scrapeIt(
+          `https://github.com/trending/${language}?spoken_language_code=en`,
+          repoStructure
+        ),
+      ],
     [
       {
         data: { repositories: tsRepos },
@@ -165,20 +166,20 @@ async function getRepositories({ language }) {
 
 async function getDiscussions({ language = 'javascript' } = {}) {
   const obj =
-      language === 'javascript'
-        ? [
-            fetch('https://www.reddit.com/r/reactjs/.json').then((value) =>
-              value.json()
-            ),
-            fetch('https://www.reddit.com/r/javascript/.json').then((data) =>
-              data.json()
-            ),
-          ]
-        : [
-            fetch(`https://www.reddit.com/r/${language}/.json`).then((value) =>
-              value.json()
-            ),
-          ],
+    language === 'javascript'
+      ? [
+        fetch('https://www.reddit.com/r/reactjs/.json').then((value) =>
+          value.json()
+        ),
+        fetch('https://www.reddit.com/r/javascript/.json').then((data) =>
+          data.json()
+        ),
+      ]
+      : [
+        fetch(`https://www.reddit.com/r/${language}/.json`).then((value) =>
+          value.json()
+        ),
+      ],
     [
       {
         data: { children: reactThreads },
