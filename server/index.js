@@ -8,7 +8,7 @@ import { ApolloServer, gql } from 'apollo-server-express'
 
 import hsp from 'heroku-self-ping';
 
-hsp("https://fanas.herokuapp.com/articles");
+hsp("https://fanas.herokuapp.com/articles", {interval: 4});
 
 const app = express()
 
