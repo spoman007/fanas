@@ -1,12 +1,15 @@
 <h1 align="center">App that brings news, repositories and discussions for any programming language to single place.🔥🔥🔥</h1>
 
-## Web API
+#### Blog
+[Blog post for backstory](https://dev.to/spoman007/i-used-my-own-app-for-a-month-and-here-is-what-i-learned-2emm)
+
+#### Web API
 https://fanas.herokuapp.com/graphql
 
-## Web Site / PWA
+#### Web Site / PWA
 https://sp-fanas.web.app/
 
-## Link To PWA Store
+#### Link To PWA Store
 https://progressiveapp.store/pwa/Fanas
 
 ## Screenshots
