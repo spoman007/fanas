@@ -16,9 +16,14 @@ const variants = {
 export const Navigation = ({ setLanguage }) => (
   <motion.ul variants={variants} onClick={(e) => e.stopPropagation()}>
     {itemIds.map((text, i) => (
-      <MenuItem i={i} key={i} text={text} setLanguage={setLanguage} />
+      <MenuItem i={i} key={i} item={text} setLanguage={setLanguage} />
     ))}
   </motion.ul>
 )
 
-const itemIds = ['Scala', 'Python', 'Javascript', 'Rust', 'Kotlin']
+const itemIds = [{ displayText: 'C#', language: 'csharp' },
+{ displayText: 'Scala', language: 'scala' },
+{ displayText: 'Python', language: 'python' },
+{ displayText: 'Javascript', language: 'javascript' },
+{ displayText: 'Rust', language: 'rust' },
+{ displayText: 'Kotlin', language: 'kotlin' }]

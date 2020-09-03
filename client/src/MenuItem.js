@@ -18,9 +18,9 @@ const variants = {
   },
 }
 
-const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF']
+const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF', '#4400FF']
 
-export const MenuItem = ({ i, text, setLanguage }) => {
+export const MenuItem = ({ i, item, setLanguage }) => {
   const style = { border: `2px solid ${colors[i]}` }
   return (
     <motion.li
@@ -31,10 +31,10 @@ export const MenuItem = ({ i, text, setLanguage }) => {
       <div
         className="icon-placeholder"
         style={style}
-        onClick={(e) => setLanguage(e, text)}
+        onClick={(e) => setLanguage(e, item.language)}
       />
-      <div className="text-placeholder" onClick={(e) => setLanguage(e, text)}>
-        {text}
+      <div className="text-placeholder" onClick={(e) => setLanguage(e, item.language)}>
+        {item.displayText}
       </div>
     </motion.li>
   )
