@@ -6,10 +6,10 @@ import fetch from 'node-fetch'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { ApolloServer, gql } from 'apollo-server-express'
 
-setInterval(async () => {
-  await fetch("https://fanas.herokuapp.com")
-  console.log('done')
-}, 1140000)
+//setInterval(async () => {
+//  await fetch("https://fanas.herokuapp.com")
+//  console.log('done')
+//}, 1140000)
 
 const app = express()
 
