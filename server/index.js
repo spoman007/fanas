@@ -113,7 +113,7 @@ async function getRepositories({ language }) {
           selector: 'a',
           attr: 'href',
           convert: (x) =>
-            'https://github.com' + x.split('=')[1].split('%2F').join('/'),
+            'https://github.com' + x,
         },
         language: {
           selector: '.mt-2',
