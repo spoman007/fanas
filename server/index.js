@@ -112,7 +112,7 @@ async function getRepositories({ language }) {
           convert: (x) => x.split('\n').join('').replace(/\s/g, ''),
         },
         link: {
-          selector: 'a',
+          selector: '.lh-condensed a',
           attr: 'href',
           convert: (x) =>
             'https://github.com' + x,
