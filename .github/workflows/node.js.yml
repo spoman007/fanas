@@ -22,10 +22,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path:  |
-                  client/firebase.json
-                  client/.firebaserc
-                  client/build/
+          path: client/build/
   deploy:
       name: Deploy
       needs: build
