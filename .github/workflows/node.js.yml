@@ -23,8 +23,8 @@ jobs:
         with:
           name: build
           path:  |
-                  firebase.json
-                  .firebaserc
+                  client/firebase.json
+                  client/.firebaserc
                   client/build/
                   
 
