@@ -33,5 +33,5 @@ jobs:
       with:
         # Artifact name
         name: client
-        path: .\build
+        path: build
 
