@@ -18,12 +18,13 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - name: Archive Production Artifact
+      - name: Production Artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path:  |
-                  build/
-                  /firebase.json
+                  firebase.json
                   .firebaserc
+                  client/build/
+                  
 
