@@ -68,7 +68,7 @@ const getTab = (currentTab, dragPosition) => {
 
 const App = () => {
   const [currentTab, setCurrentTab] = useState('repositories')
-  const [language, setLanguage] = useState('javascript')
+  const [language, setLanguage] = useState('')
   const [isOpen, toggleOpen] = useCycle(false, true)
   const containerRef = useRef(null)
   const { height } = useDimensions(containerRef)

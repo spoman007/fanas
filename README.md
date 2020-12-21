@@ -17,9 +17,11 @@ https://progressiveapp.store/pwa/Fanas
 <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/4.jpg" width="40%" height="40%" title="4">  <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/3.jpg" width="40%" height="40%" title="3">
 
 ## TODO 📝
-- Add bookmark capability
-- Add more languages like C#
+- Add bookmark capability ✅
+- Add more languages like C# ✅
 - Consider the desktop view, right now application is designed from mobile perspective
+- Add spoken language toggle
+- Clear programming language choice
 
 #### Note: The app only displays titles and deep links them to original source.
 

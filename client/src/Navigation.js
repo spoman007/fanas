@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { motion } from 'framer-motion'
-import { MenuItem } from './MenuItem'
+import * as React from 'react';
+import { motion } from 'framer-motion';
+import { MenuItem } from './MenuItem';
 
 const variants = {
   open: {
@@ -11,7 +11,7 @@ const variants = {
     transition: { staggerChildren: 0.05, staggerDirection: -1, delay: 0.5 },
     display: 'none',
   },
-}
+};
 
 export const Navigation = ({ setLanguage }) => (
   <motion.ul variants={variants} onClick={(e) => e.stopPropagation()}>
@@ -19,11 +19,13 @@ export const Navigation = ({ setLanguage }) => (
       <MenuItem i={i} key={i} item={text} setLanguage={setLanguage} />
     ))}
   </motion.ul>
-)
+);
 
-const itemIds = [{ displayText: 'C#', language: 'csharp' },
-{ displayText: 'Scala', language: 'scala' },
-{ displayText: 'Python', language: 'python' },
-{ displayText: 'Javascript', language: 'javascript' },
-{ displayText: 'Rust', language: 'rust' },
-{ displayText: 'Kotlin', language: 'kotlin' }]
+const itemIds = [
+  { displayText: 'Javascript', language: 'javascript' },
+  { displayText: 'C#', language: 'csharp' },
+  { displayText: 'Kotlin', language: 'kotlin' },
+  { displayText: 'Scala', language: 'scala' },
+  { displayText: 'Python', language: 'python' },
+  { displayText: 'Rust', language: 'rust' },
+];
