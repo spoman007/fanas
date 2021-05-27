@@ -18,15 +18,10 @@ app.use(cors());
 const port = process.env.PORT || 3000;
 
 const typeDefs = gql`
-  type Tags {
-    name: String
-    keywords_for_search: String
-  }
-
   type Article {
     title: String
     link: String
-    tags: [Tags]
+    tags: [String]
     image: String
   }
 
@@ -92,7 +87,7 @@ async function getArticles({ language = 'javascript' } = {}) {
     `https://dev.to/search/feed_content?per_page=30&page=0&tag=${language.toLowerCase()}&sort_by=hotness_score&sort_direction=desc&tag_names%5B%5D=${language.toLowerCase()}&approved=&class_name=Article`
   );
   const { result } = await api_res.json();
-  return result.map(({ path, tags, title, main_image, image_url }) => ({
+  return result.map(({ path, tag_list: tags, title, main_image, image_url }) => ({
     title,
     link: 'https://dev.to' + path,
     tags,

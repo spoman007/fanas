@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Article = ({ article: { title, link, image, tags } }) => (
   <div className="article card">
@@ -6,7 +6,7 @@ const Article = ({ article: { title, link, image, tags } }) => (
       <span className="article-title">{title}</span>
       <p>
         <span className="repo-stats">
-          {tags.map(({ name }) => (
+          {tags.map((name) => (
             <span key={name}>{`#${name} `}</span>
           ))}
         </span>
@@ -14,6 +14,6 @@ const Article = ({ article: { title, link, image, tags } }) => (
     </div>
     {image && <img alt={title} className="article-image" src={image}></img>}
   </div>
-)
+);
 
-export default Article
+export default Article;
