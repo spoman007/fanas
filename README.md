@@ -13,9 +13,6 @@ https://fanas.herokuapp.com/graphql
 #### Web Site / PWA
 https://sp-fanas.web.app/
 
-#### Link To PWA Store
-https://progressiveapp.store/pwa/Fanas
-
 ## Screenshots
 <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/1.jpg" width="40%" height="40%" title="1">  <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/2.jpg" width="40%" height="40%" title="2">
 <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/4.jpg" width="40%" height="40%" title="4">  <img src="https://raw.githubusercontent.com/spoman007/fanas/master/images/3.jpg" width="40%" height="40%" title="3">
