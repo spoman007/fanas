@@ -6,9 +6,7 @@ import { useQuery } from 'react-query';
 
 const ArticleList = ({ isOpen, language, handleDrag }) => {
   const fetchArticles = () =>
-    fetch(`https://vercel-api-spoman007.vercel.app/api/articles/${language}`).then((res) =>
-      res.json()
-    );
+    fetch(`https://vercel-api-silk.vercel.app/api/articles/${language}`).then((res) => res.json());
 
   const { status, data: articles, error } = useQuery(`articles${language}`, fetchArticles);
 

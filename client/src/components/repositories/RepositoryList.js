@@ -15,7 +15,7 @@ const RepositoryList = ({ isOpen, language, handleDrag }) => {
     setFavorite(newFavorites);
   };
   const fetchRepos = () =>
-    fetch(`https://vercel-api-spoman007.vercel.app/api/repositories/${language}`).then((res) =>
+    fetch(`https://vercel-api-silk.vercel.app/api/repositories/${language}`).then((res) =>
       res.json()
     );
 

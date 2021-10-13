@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 
 const DiscussionList = ({ isOpen, language, handleDrag }) => {
   const fetchDiscussions = () =>
-    fetch(`https://vercel-api-spoman007.vercel.app/api/discussions/${language}`).then((res) =>
+    fetch(`https://vercel-api-silk.vercel.app/api/discussions/${language}`).then((res) =>
       res.json()
     );
 
