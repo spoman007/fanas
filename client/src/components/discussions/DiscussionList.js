@@ -1,33 +1,30 @@
-import React from 'react'
-import Discussion from './Discussion'
-import Spinner from '../Spinner'
-import { motion } from 'framer-motion'
-import { useQuery } from 'react-query'
+import React from 'react';
+import Discussion from './Discussion';
+import Spinner from '../Spinner';
+import { motion } from 'framer-motion';
+import { useQuery } from 'react-query';
 
 const DiscussionList = ({ isOpen, language, handleDrag }) => {
   const fetchDiscussions = () =>
-  fetch(`https://fanas.herokuapp.com/discussions/${language}`).then((res) =>
-    res.json()
-  )
+    fetch(`https://vercel-api-spoman007.vercel.app/api/discussions/${language}`).then((res) =>
+      res.json()
+    );
 
-const { status, data: discussions, error } = useQuery(
-  `discussions${language}`,
-  fetchDiscussions
-)
+  const { status, data: discussions, error } = useQuery(`discussions${language}`, fetchDiscussions);
 
-if (status === 'loading') {
-  return <Spinner />
-}
+  if (status === 'loading') {
+    return <Spinner />;
+  }
 
-if (status === 'error') {
-  return <span>Error: {error.message}</span>
-}
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <motion.div
-    //   drag="x"
-    //   dragConstraints={{ left: 0, right: 0 }}
-    //   onDragEnd={(_event, info) => handleDrag(info.point.x)}
+      //   drag="x"
+      //   dragConstraints={{ left: 0, right: 0 }}
+      //   onDragEnd={(_event, info) => handleDrag(info.point.x)}
       className="container"
       initial="hidden"
       animate="visible"
@@ -42,7 +39,7 @@ if (status === 'error') {
         <Discussion discussion={discussion} key={discussion.title + i} />
       ))}
     </motion.div>
-  )
-}
+  );
+};
 
-export default DiscussionList
+export default DiscussionList;

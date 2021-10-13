@@ -1,26 +1,23 @@
-import React from 'react'
-import Article from './Article'
-import Spinner from '../Spinner'
-import { motion } from 'framer-motion'
-import { useQuery } from 'react-query'
+import React from 'react';
+import Article from './Article';
+import Spinner from '../Spinner';
+import { motion } from 'framer-motion';
+import { useQuery } from 'react-query';
 
 const ArticleList = ({ isOpen, language, handleDrag }) => {
   const fetchArticles = () =>
-    fetch(`https://fanas.herokuapp.com/articles/${language}`).then((res) =>
+    fetch(`https://vercel-api-spoman007.vercel.app/api/articles/${language}`).then((res) =>
       res.json()
-    )
+    );
 
-  const { status, data: articles, error } = useQuery(
-    `articles${language}`,
-    fetchArticles
-  )
+  const { status, data: articles, error } = useQuery(`articles${language}`, fetchArticles);
 
   if (status === 'loading') {
-    return <Spinner />
+    return <Spinner />;
   }
 
   if (status === 'error') {
-    return <span>Error: {error.message}</span>
+    return <span>Error: {error.message}</span>;
   }
 
   return (
@@ -42,7 +39,7 @@ const ArticleList = ({ isOpen, language, handleDrag }) => {
         <Article article={article} key={article.title} />
       ))}
     </motion.div>
-  )
-}
+  );
+};
 
-export default ArticleList
+export default ArticleList;
