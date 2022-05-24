@@ -29,7 +29,7 @@
     "express": "^4.17.1",
     "graphql-playground-middleware-express": "^1.7.14",
     "heroku-self-ping": "^2.0.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "scrape-it": "^5.2.3"
   }
 }
