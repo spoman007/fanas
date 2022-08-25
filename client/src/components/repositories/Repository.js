@@ -6,7 +6,7 @@ const Repository = ({ bookmark,
 }) => (
     <div className="card">
       <div onClick={() => window.open(link, '_newtab')}>
-        <span>{title}</span>
+        <span>{title.substr(0, 40)}</span>
         <p>{description}</p>
         <p>
           <span className="repo-stats">
